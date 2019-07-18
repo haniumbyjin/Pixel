@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ useState } from 'react';
 import clsx from 'clsx';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -26,6 +26,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 const drawerWidth = 240;
 
@@ -85,9 +88,25 @@ const useStyles = makeStyles(theme => ({
         padding: '0 8px',
         ...theme.mixins.toolbar,
     },
+    menuButtonHidden: {
+        display: 'none',
+    },
+    title: {
+        flexGrow: 1,
+    },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
+        height: '100vh',
+        overflow: 'auto',
+        marginTop: 100
+    },
+    paper: {
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+    },
+    fixedHeight: {
+        height: 240,
     },
 }));
 
@@ -188,7 +207,8 @@ export const thirdListItems = (
 export default function ListItems() {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     function handleDrawerOpen() {
         setOpen(true);
@@ -226,6 +246,7 @@ export default function ListItems() {
             </AppBar>
             <Drawer
                 variant="permanent"
+
                 className={clsx(classes.drawer, {
                     [classes.drawerOpen]: open,
                     [classes.drawerClose]: !open,
@@ -250,6 +271,36 @@ export default function ListItems() {
                 <Divider/>
                 <List className={classes.fab}>{thirdListItems}</List>
             </Drawer>
+
+            <main className={classes.content}>
+                <Container maxWidth="lg" className={classes.container}>
+                    <Grid container spacing={4}>
+                        <Grid item xs={12} md={8} lg={9}>
+                            <Paper className={fixedHeightPaper}>
+                                Grid First
+                            </Paper>
+                        </Grid>
+
+                        <Grid item xs={12} md={4} lg={3}>
+                            <Paper className={fixedHeightPaper}>
+                                Grid Second
+                            </Paper>
+                        </Grid>
+
+                        <Grid item xs={12} lg={6}>
+                            <Paper className={fixedHeightPaper}>
+                                Grid Third
+                            </Paper>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                            <Paper>
+                                Grid Fourth
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </main>
         </div>
 
     )
