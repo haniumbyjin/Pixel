@@ -1,14 +1,10 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 import SignIn from '../components/SignIn';
 
-class Login extends Component{
-    render(){
-        return(
-          <div>
-              <SignIn/>
-          </div>
-        );
-    }
+export default function Login() {
+    return(
+        <div>
+            <SignIn/>
+        </div>
+    )
 }
-
-export default Login;
