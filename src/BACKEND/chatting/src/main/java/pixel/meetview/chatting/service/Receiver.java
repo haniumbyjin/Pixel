@@ -23,8 +23,8 @@ public class Receiver {
         LOGGER.info("message='{}'", message);
         HashMap<String, String> msg = new HashMap<>();
         msg.put("timestamp", Long.toString(message.getTimeStamp()));
-        msg.put("message", message.getMessage());
-        msg.put("user", message.getUser());
+        msg.put("content", message.getContent());
+        msg.put("user_uid", message.getUser_uid());
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(msg);
