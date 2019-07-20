@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 @Data
 public class ChattingMessage implements Serializable {
-    private String message;
-    private String user;
-    private String date;
+    private String content;
+    private String user_uid;
+    private String send_date;
     private Long timeStamp;
 
     private String fileName;
@@ -17,15 +17,15 @@ public class ChattingMessage implements Serializable {
     public ChattingMessage() {
     }
 
-    public ChattingMessage(String message, String user) {
-        this.user = user;
-        this.message = message;
+    public ChattingMessage(String content, String user_uid) {
+        this.user_uid = user_uid;
+        this.content = content;
     }
 
-    public ChattingMessage(String message, String user, String date) {
-        this.user = user;
-        this.message = message;
-        this.date = date;
+    public ChattingMessage(String content, String user_uid, String send_date) {
+        this.user_uid = user_uid;
+        this.content = content;
+        this.send_date = send_date;
     }
 
 //    public ChattingMessage(String fileName, String rawData, String user) {
@@ -36,6 +36,6 @@ public class ChattingMessage implements Serializable {
 //    }
 
     public ChattingMessage(String message) {
-        this.message = message;
+        this.content = content;
     }
 }
