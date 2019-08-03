@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-import pixel.meetview.chatting.model.ChattingMessage;
+import pixel.meetview.chatting.model.response.ChattingMessage;
 
 @Component
 public class Sender {
