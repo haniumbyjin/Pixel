@@ -47,7 +47,6 @@ class ChattingList extends Component {
                 <InfiniteScroll
                 throttle={100}
                 threshold={300}
-                // dataLength={chatList.length} //This is important field to render the next data
                 next={this.state.fetchData}
                 hasMore={true}
                 endMessage={

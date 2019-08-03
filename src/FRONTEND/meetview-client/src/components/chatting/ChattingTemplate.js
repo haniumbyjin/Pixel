@@ -18,13 +18,9 @@ class ChattingTemplate extends Component {
         //alert(JSON.stringify(msg) + " @ " + JSON.stringify(topic));
         this.props.data.push(msg);
         console.log(this.props.data);
-        // this.setState(prevState => ({
-        //     messages: [...prevState.messages, msg]
-        // }));
     }
 
     sendMessage = (newMsg) => {
-        console.log("Chatting Template - sendMessage");
         try {
             var send_message = {
                 "user_uid": newMsg.user_uid,

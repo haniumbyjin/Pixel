@@ -58,14 +58,6 @@ class Message extends Component {
                         </Grid>
                     </Grid>
                 </Paper>
-                {/* <Paper className={classes.chat}>
-                    <Typography color="textSecondary">
-                        {user_uid}
-                    </Typography>
-                    <Typography component="p">
-                        {content}
-                    </Typography>
-                </Paper> */}
             </div>
         );
     }
