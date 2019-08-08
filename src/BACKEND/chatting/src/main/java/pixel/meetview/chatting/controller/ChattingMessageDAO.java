@@ -2,7 +2,7 @@ package pixel.meetview.chatting.controller;
 
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Component;
-import pixel.meetview.chatting.model.ChattingMessage;
+import pixel.meetview.chatting.model.response.ChattingMessage;
 
 import javax.annotation.Resource;
 import java.util.Comparator;

@@ -1,15 +1,23 @@
 package pixel.meetview.chatting.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pixel.meetview.chatting.model.ChattingMessage;
+import pixel.meetview.chatting.model.enums.ResponseStatusCode;
+import pixel.meetview.chatting.model.response.ChattingMessage;
+import pixel.meetview.chatting.model.wrapper.ResponseWrapper;
 import pixel.meetview.chatting.service.Sender;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 public class ChattingController {
 
@@ -29,6 +37,15 @@ public class ChattingController {
         chattingMessageDAO.save(message);
         System.out.println("sendMessage: "+message);
         sender.send(BOOT_TOPIC, message);
+    }
+
+    @PostMapping("/test")
+    public ResponseEntity test(@RequestBody ChattingMessage test){
+
+        log.info("Test sample");
+        ChattingMessage message = ChattingMessage.builder().content(test.getContent()).build();
+
+        return new ResponseEntity(new ResponseWrapper(ResponseStatusCode.OK, message), HttpStatus.OK);
     }
 
     @RequestMapping("/history")
