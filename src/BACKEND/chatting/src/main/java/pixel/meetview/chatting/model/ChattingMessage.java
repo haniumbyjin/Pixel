@@ -1,10 +1,14 @@
 package pixel.meetview.chatting.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
 
+@Builder
 @Data
+@AllArgsConstructor
 public class ChattingMessage implements Serializable {
     private String content;
     private String user_uid;
