@@ -8,16 +8,20 @@ import org.springframework.web.bind.annotation.RestController;
 import pixel.meetview.chatting.model.ChattingMessage;
 import pixel.meetview.chatting.service.Sender;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
 public class ChattingController {
-
-    @Autowired
     private Sender sender;
+    private ChattingMessageDAO chattingMessageDAO;
 
     @Autowired
-    private ChattingMessageDAO chattingMessageDAO;
+    public ChattingController(Sender sender, ChattingMessageDAO chattingMessageDAO){
+        this.sender = sender;
+        this.chattingMessageDAO = chattingMessageDAO;
+    }
 
     private static String BOOT_TOPIC = "kafka-chatting";
 
@@ -26,6 +30,9 @@ public class ChattingController {
     // @SendTo("/topic/public")//websocket subscribe topic& direct send
     public void sendMessage(ChattingMessage message) throws Exception {
         message.setTimeStamp(System.currentTimeMillis());
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        String current = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        message.setSend_date(current);
         chattingMessageDAO.save(message);
         System.out.println("sendMessage: "+message);
         sender.send(BOOT_TOPIC, message);

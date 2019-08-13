@@ -1,21 +1,24 @@
 package pixel.meetview.chatting.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import pixel.meetview.chatting.model.ChattingMessage;
 
+@Slf4j
 @Component
 public class Sender {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Sender.class);
 
-    @Autowired
     private KafkaTemplate<String, ChattingMessage> kafkaTemplate;
 
+    @Autowired
+    public Sender(KafkaTemplate<String, ChattingMessage> kafkaTemplate){
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
     public void send(String topic, ChattingMessage data) {
-        LOGGER.info("sending data='{}' to topic='{}'", data, topic);
+        log.info("sending data='{}' to topic='{}'", data, topic);
         kafkaTemplate.send(topic, data);// send to react clients via websocket(STOMP)
     }
 }

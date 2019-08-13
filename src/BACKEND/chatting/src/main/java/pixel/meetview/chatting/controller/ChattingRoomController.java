@@ -10,9 +10,12 @@ import pixel.meetview.chatting.service.ChattingRoomService;
 @Slf4j
 @RestController
 public class ChattingRoomController {
+    ChattingRoomService chattingRoomService;
 
     @Autowired
-    ChattingRoomService chattingRoomService;
+    public ChattingRoomController(ChattingRoomService chattingRoomService){
+        this.chattingRoomService = chattingRoomService;
+    }
 
     // "url/createroom"
     @RequestMapping("/createroom")
