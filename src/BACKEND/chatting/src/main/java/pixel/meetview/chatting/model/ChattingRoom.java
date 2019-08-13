@@ -22,6 +22,4 @@ public class ChattingRoom implements Serializable {
     @JsonIgnore
     private List<ChattingMessage> chattingMessages;
 
-
-
 }
