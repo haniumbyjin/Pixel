@@ -1,4 +1,4 @@
-package pixel.meetview.chatting.model;
+package pixel.meetview.chatting.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

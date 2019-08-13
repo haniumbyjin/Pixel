@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-import pixel.meetview.chatting.model.ChattingMessage;
+import pixel.meetview.chatting.model.response.ChattingMessage;
 
 import java.util.HashMap;
 
