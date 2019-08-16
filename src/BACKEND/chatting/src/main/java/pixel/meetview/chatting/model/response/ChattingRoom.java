@@ -1,4 +1,4 @@
-package pixel.meetview.chatting.model;
+package pixel.meetview.chatting.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -21,5 +21,8 @@ public class ChattingRoom implements Serializable {
 
     @JsonIgnore
     private List<ChattingMessage> chattingMessages;
+
+    @JsonIgnore
+    private List<User> joinUser;
 
 }
