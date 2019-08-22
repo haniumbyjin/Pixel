@@ -17,12 +17,12 @@ public class ChattingRoom implements Serializable {
     private int room_uid;
     private String room_name;
     private String url;
-    private int master_uid;
+    private String master_id;
 
     @JsonIgnore
     private List<ChattingMessage> chattingMessages;
 
     @JsonIgnore
-    private List<User> joinUser;
+    private List<User> joinUsers;
 
 }

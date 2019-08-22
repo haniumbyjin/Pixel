@@ -27,7 +27,7 @@ public class Receiver {
         HashMap<String, String> msg = new HashMap<>();
         msg.put("timestamp", Long.toString(message.getTimeStamp()));
         msg.put("content", message.getContent());
-        msg.put("user_uid", message.getUser_uid());
+        msg.put("user_id", message.getUser_id());
         msg.put("send_date",message.getSend_date());
 
         ObjectMapper mapper = new ObjectMapper();
