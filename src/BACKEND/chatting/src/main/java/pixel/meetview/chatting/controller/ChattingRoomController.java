@@ -24,11 +24,12 @@ public class ChattingRoomController {
 
     // "url/createroom"
     @RequestMapping("/createroom")
-    public ResponseEntity createRoom(User user) {
-        log.info("Create room - Master_id: "+user.getUser_id());
+    public ResponseEntity createRoom(ChattingRoom newRoom) {
+        log.info("Create room - Room Name: "+newRoom.getRoom_name());
+        log.info("Create room - Master id: "+ newRoom.getMaster_id());
         //user값 검사(ex.token)
         //if 문제가 없다면 service호출
-        ChattingRoom room = chattingRoomService.createRoom(user);
+        ChattingRoom room = chattingRoomService.createRoom(newRoom);
 
         return new ResponseEntity(new ResponseWrapper(ResponseStatusCode.OK, room), HttpStatus.OK);
     }
