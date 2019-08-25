@@ -41,8 +41,8 @@ public class ChattingController {
         LocalDateTime currentDateTime = LocalDateTime.now();
         String current = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         message.setSend_date(current);
+
         chattingMessageDAO.save(message);
-        System.out.println("sendMessage: "+message);
         sender.send(BOOT_TOPIC, message);
     }
 

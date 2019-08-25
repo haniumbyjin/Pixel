@@ -11,13 +11,11 @@ import pixel.meetview.chatting.model.response.User;
 @Transactional
 public class ChattingRoomService {
 
-    public ChattingRoom createRoom(User user){
-        ChattingRoom room = new ChattingRoom();
-        room.setRoom_name("testRoom");
-        room.setMaster_uid(user.getUser_uid());
-
-        log.info("roomName: "+ room.getRoom_name());
-        log.info("Master uid: "+ room.getMaster_uid());
+    public ChattingRoom createRoom(ChattingRoom newRoom){
+        //room data저장
+        log.info("roomName: "+ newRoom.getRoom_name());
+        ChattingRoom room = newRoom;
+        room.setRoom_uid(0); //tset용
 
         return room;
     }
