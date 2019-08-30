@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/styles';
 import {Link} from 'react-router-dom';
+import axios, { post } from "axios";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -33,6 +34,18 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
     const classes = useStyles();
 
+    const onFormSubmit = (e) => {
+    };
+
+    const onChangeIdInput = (e) => {
+        setUserId(e.target.value);
+    };
+
+    const onChangePassInput = (e) => {
+        setUserPassword(e.target.value)
+    };
+    const [userId, setUserId] = useState();
+    const [userPassword, setUserPassword] = useState();
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -43,7 +56,7 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={onFormSubmit}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -54,6 +67,7 @@ export default function SignIn() {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        onChange={onChangeIdInput}
                     />
                     <TextField
                         variant="outlined"
@@ -65,6 +79,7 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={onChangePassInput}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary"/>}
@@ -77,6 +92,7 @@ export default function SignIn() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={onFormSubmit}
                         >
                             Sign In
                         </Button>
