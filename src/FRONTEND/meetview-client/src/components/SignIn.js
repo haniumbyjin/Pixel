@@ -33,6 +33,110 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
     const classes = useStyles();
 
+<<<<<<< HEAD
+||||||| parent of 054fa2b... Update: rebase from fileupload.
+    const [userId, setUserId] = useState();
+    const [userPassword, setUserPassword] = useState();
+
+
+    const submitUserLogin = (e) => {
+        const url = "http://localhost:8080/users/user";
+        console.log(e);
+        const config = {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: {
+                "username": userId,
+                "password": userPassword
+            },
+        };
+        return post(url, config);
+    };
+
+    const getToken = () => {
+        const url = "http://localhost:8080/oauth/token";
+        const config = {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: {
+                "username": userId,
+                "password": userPassword,
+                "grant_type": "password"
+            },
+        };
+        return post(url, config);
+    };
+
+    const onFormSubmit = (e) => {
+        e.preventDefault();
+        getToken();
+        // submitUserLogin(e);
+    };
+
+    const onChangeIdInput = (e) => {
+        setUserId(e.target.value);
+    };
+
+    const onChangePassInput = (e) => {
+        setUserPassword(e.target.value)
+    };
+
+=======
+    const [userId, setUserId] = useState();
+    const [userPassword, setUserPassword] = useState();
+
+
+    const submitUserLogin = (e) => {
+        const url = "http://localhost:8080/users/user";
+        console.log(e);
+        const config = {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: {
+                "username": userId,
+                "password": userPassword
+            },
+        };
+        return post(url, config);
+    };
+
+    const getToken = () => {
+        const url = "http://localhost:8080/oauth/token";
+        const config = {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: {
+                "username": userId,
+                "password": userPassword,
+                "grant_type": "password"
+            },
+        };
+        return post(url, config);
+    };
+
+    const onFormSubmit = (e) => {
+        //e.preventDefault();
+        getToken();
+        // submitUserLogin(e);
+    };
+
+    const onChangeIdInput = (e) => {
+        setUserId(e.target.value);
+    };
+
+    const onChangePassInput = (e) => {
+        setUserPassword(e.target.value)
+    };
+
+>>>>>>> 054fa2b... Update: rebase from fileupload.
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
