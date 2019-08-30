@@ -29,6 +29,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import FileContainer from './FileContainer';
 
 const drawerWidth = 240;
 
@@ -277,7 +278,7 @@ export default function ListItems() {
                     <Grid container spacing={4}>
                         <Grid item xs={12} md={8} lg={9}>
                             <Paper className={fixedHeightPaper}>
-                                Grid First
+                                <FileContainer/>
                             </Paper>
                         </Grid>
 

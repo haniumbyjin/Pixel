@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/styles';
 import {Link} from 'react-router-dom';
+import axios, { post } from "axios";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
     const classes = useStyles();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 ||||||| parent of 054fa2b... Update: rebase from fileupload.
     const [userId, setUserId] = useState();
@@ -137,6 +139,59 @@ export default function SignIn() {
     };
 
 >>>>>>> 054fa2b... Update: rebase from fileupload.
+||||||| merged common ancestors
+=======
+    const [userId, setUserId] = useState();
+    const [userPassword, setUserPassword] = useState();
+
+
+    const submitUserLogin = (e) => {
+        const url = "http://localhost:8080/users/user";
+        console.log(e);
+        const config = {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: {
+                "username": userId,
+                "password": userPassword
+            },
+        };
+        return post(url, config);
+    };
+
+    const getToken = () => {
+        const url = "http://localhost:8080/oauth/token";
+        const config = {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: {
+                "username": userId,
+                "password": userPassword,
+                "grant_type": "password"
+            },
+        };
+        return post(url, config);
+    };
+
+    const onFormSubmit = (e) => {
+        //e.preventDefault();
+        getToken();
+        // submitUserLogin(e);
+    };
+
+    const onChangeIdInput = (e) => {
+        setUserId(e.target.value);
+    };
+
+    const onChangePassInput = (e) => {
+        setUserPassword(e.target.value)
+    };
+
+>>>>>>> feature/chatting/fileupload
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -147,7 +202,7 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={onFormSubmit}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -158,6 +213,7 @@ export default function SignIn() {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        onChange={onChangeIdInput}
                     />
                     <TextField
                         variant="outlined"
@@ -169,6 +225,7 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={onChangePassInput}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary"/>}
@@ -181,6 +238,7 @@ export default function SignIn() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={onFormSubmit}
                         >
                             Sign In
                         </Button>
