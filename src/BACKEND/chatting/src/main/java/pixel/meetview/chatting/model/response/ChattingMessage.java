@@ -13,7 +13,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ChattingMessage implements Serializable {
     private String content;
-    private String user_id;
-    private String send_date;
+    private String userId;
+    private String sendDate;
     private Long timeStamp;
+    private boolean isFile;// if file, this is true
 }
