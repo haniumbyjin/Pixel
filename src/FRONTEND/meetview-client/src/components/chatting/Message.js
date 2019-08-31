@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React, { Component, Fragment } from 'react';
 import {observer} from 'mobx-react';
 import Paper from '@material-ui/core/Paper';
@@ -5,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
+import {Link} from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -29,7 +31,7 @@ class Message extends Component {
         const {classes} = this.props;
 
         const {
-            user_uid, content, send_date, fileName, rawData, timeStamp
+            user_uid, content, send_date, fileName, rawData, timeStamp, is_file
         } = this.props.info
 
         return (
@@ -46,7 +48,7 @@ class Message extends Component {
                                         {user_uid}
                                     </Typography>
                                     <Typography>
-                                        {content}
+                                        {is_file ? <a href="{content}"/> : {content}}                                                  
                                     </Typography>
                                 </Grid>
                             </Grid>

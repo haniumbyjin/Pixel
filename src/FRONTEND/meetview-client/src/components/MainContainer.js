@@ -29,7 +29,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import FileContainer from './FileContainer';
+import FileContainer from './chatting/FileContainer';
 
 const drawerWidth = 240;
 
@@ -205,7 +205,7 @@ export const thirdListItems = (
     </div>
 );
 
-export default function ListItems() {
+export default function MainContainer() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
