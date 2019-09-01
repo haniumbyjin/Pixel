@@ -1,0 +1,2 @@
+start "zookeeper" cmd /k "cd .\kafka_2.12-2.2.0\bin\windows && zookeeper-server-start.bat ..\..\config\zookeeper.properties"
+start "kafka" cmd /k "cd .\kafka_2.12-2.2.0\bin\windows && kafka-server-start.bat ..\..\config\server.properties"
