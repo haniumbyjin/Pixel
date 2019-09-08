@@ -7,7 +7,7 @@ import {BrowserRouter} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import RootStore from './stores/RootStore';
 
-const root = new RootStore();
+const root = RootStore;
 
 ReactDOM.render(
     <BrowserRouter>

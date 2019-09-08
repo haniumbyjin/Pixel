@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { IconButton } from "@material-ui/core";
@@ -68,10 +68,10 @@ export default function MainContainer() {
         setFile(e.target.files[0]);
         setFileType(e.target.files[0].type);
         setFileName(e.target.files[0].name);
-        setFileSize(e.target.files[0].size);
+        setFileSize((e.target.files[0].size/1024).toFixed(2));
         console.log('file!!', e.target.files[0]);
         readFile(e)
-        onFormSubmit(e)
+        //onFormSubmit(e)
     };
 
     useEffect(() => {
@@ -86,12 +86,11 @@ export default function MainContainer() {
             <div>
                 <Container maxWidth="sm" className={classes.container}>
                     <Typography component="div">
-                        <p>파일이름 : {fileName}</p>
-                        <p>파일타입 : {fileType}</p>
-                        <p>파일크기 : {fileSize}</p>
+                        <div>파일이름 : {fileName}</div>
+                        <div>파일타입 : {fileType}</div>
+                        <div>파일크기 : {fileSize} {fileSize>0 ? "KB":""}</div>
                         <form onSubmit={onFormSubmit}>
-                            <input
-                                
+                            <input                                
                                 id="contained-button-file"
                                 multiple
                                 type="file"
@@ -106,7 +105,7 @@ export default function MainContainer() {
                                     component="span"
                                     type="submit"
                                 >
-                                    <CloudUploadIcon />
+                                    <CloudDownloadIcon />
                                 </IconButton>
                             </label>
                         </form>

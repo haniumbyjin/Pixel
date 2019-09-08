@@ -30,6 +30,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import FileContainer from './chatting/FileContainer';
+import ChattingTemplete from './chatting/ChattingTemplate';
 
 const drawerWidth = 240;
 
@@ -108,6 +109,9 @@ const useStyles = makeStyles(theme => ({
     },
     fixedHeight: {
         height: 240,
+    },
+    fixedChatHeight: {
+        height: 450,
     },
 }));
 
@@ -210,6 +214,7 @@ export default function MainContainer() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    const fixedChatPaper = clsx(classes.paper, classes.fixedChatHeight);
 
     function handleDrawerOpen() {
         setOpen(true);
@@ -278,7 +283,7 @@ export default function MainContainer() {
                     <Grid container spacing={4}>
                         <Grid item xs={12} md={8} lg={9}>
                             <Paper className={fixedHeightPaper}>
-                                <FileContainer/>
+                                {/* <FileContainer/> */}
                             </Paper>
                         </Grid>
 
@@ -287,9 +292,9 @@ export default function MainContainer() {
                                 Grid Second
                             </Paper>
                         </Grid>
-
-                        <Grid item xs={12} lg={6}>
-                            <Paper className={fixedHeightPaper}>
+                        <ChattingTemplete/>
+                        <Grid item xs={12}>
+                            <Paper className={fixedChatPaper}>                              
                                 Grid Third
                             </Paper>
                         </Grid>

@@ -27,7 +27,9 @@ public class Receiver {
         ObjectMapper mapper = new ObjectMapper();
 
         // convert message to json
+        System.out.println(message);
         String json = mapper.writeValueAsString(message);
+        System.out.println(json);
 
         // send to react clients via websocket(STOMP)
         this.template.convertAndSend("/topic/public", json);

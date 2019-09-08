@@ -1,68 +1,91 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-import React, { Component, Fragment } from 'react';
-import {observer} from 'mobx-react';
+import React, { Component } from 'react';
+import {inject, observer} from 'mobx-react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
-import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        overflow: 'hidden',
+        overflow: 'hidden',      
+    },
+    date: {
+        marginBottom: '7px',
     },
     chat: {
-      maxWidth: 350,
-      height: "50px",
-      margin: '5px',
-      padding: '10px',
+        padding: '10px',
+        margin: '7px',
+        maxWidth:400
     },
  });
 
-@observer
-class Message extends Component {
-    constructor(props){
-        super(props);
+ const Message = ((props) => {
+    //console.log("this messages" + JSON.stringify(props.info));
+    const {classes} = props;
+    const {
+        content, userId, sendDate, fileName, file
+    } = props.info
+    
+    const fileDownload = (e) => {
+        const downloadurl = 'http://localhost:8080/files/download/' + fileName;
+        axios.request({
+            url: downloadurl,
+            method: 'GET',
+            responseType: 'blob', // important
+          }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));            
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', fileName);
+            document.body.appendChild(link);
+            link.click();
+            console.log('upload download!!');
+          });
+        
     }
-
-    render() {
-        const {classes} = this.props;
-
-        const {
-            user_uid, content, send_date, fileName, rawData, timeStamp, is_file
-        } = this.props.info
-
-        return (
-            <div className={classes.root}>
-                <Paper className={classes.chat}>
-                    <Grid container wrap="nowrap" spacing={3}>
-                        <Grid item>
-                            <Avatar>W</Avatar>
-                        </Grid>
-                        <Grid item xs zeroMinWidth>
-                            <Grid item xs container direction="column" spacing={2}>
-                                <Grid item xs>
-                                    <Typography color="textSecondary">
-                                        {user_uid}
-                                    </Typography>
-                                    <Typography>
-                                        {is_file ? <a href="{content}"/> : {content}}                                                  
-                                    </Typography>
-                                </Grid>
+    
+    function Content(props) {
+        const isFile = props.isFile;
+        if(isFile)
+            return <a href="#" onClick={fileDownload}>{fileName}</a>;
+        else
+            return <div>{content}</div>;
+    }
+    return (
+        <div className={classes.root}>
+            <Grid container                
+            direction="row"
+            alignItems="flex-end">
+                <Grid item>
+                    <Paper className={classes.chat}>
+                        <Grid container spacing={3} alignItems="center">
+                            <Grid item>
+                                <Avatar>W</Avatar>
+                            </Grid>                            
+                            <Grid xs item>                                
+                                <Typography gutterBottom color="textSecondary" noWrap>
+                                    {userId}
+                                </Typography>
+                                <Typography gutterBottom>
+                                    <Content isFile={file}/>                                
+                                </Typography>                                
                             </Grid>
                         </Grid>
-                        <Grid item>
-                            <Typography color="textSecondary">
-                                {send_date}
-                            </Typography>
-                        </Grid>
+                    </Paper>
+                </Grid>
+                <Grid item>
+                    <Grid item xs className={classes.date}>
+                        {sendDate}
                     </Grid>
-                </Paper>
-            </div>
-        );
-    }
-}
+                </Grid>
+            </Grid>
+        </div>
+    );
+});
 
-export default withStyles(styles)(Message);
+export default (withStyles(styles)(Message));
+//export default withStyles(styles)(Message);

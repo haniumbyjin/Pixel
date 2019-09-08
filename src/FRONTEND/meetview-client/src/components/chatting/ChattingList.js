@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { observer, inject } from 'mobx-react';
 import Message from './Message';
 import Paper from '@material-ui/core/Paper';
 import {withStyles} from '@material-ui/styles';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const styles = theme => ({
     chat_list: {
         width: 700,
-        height: 400,
+        height: 500,
         border: '1px gray',
-        padding: '5px',
         margin: '10px',
     },
     scroll_div: {
@@ -18,53 +17,33 @@ const styles = theme => ({
     },
 });
 
-@inject(stores => ({
-    data: stores.chat.data
-}))
-
-@observer
-class ChattingList extends Component {
-    state = {
-        value:'',
-        fetchData: 10,
-    }
-
-    render(){
-        const {classes} = this.props;
-        
-        const chatList = this.props.data.map(info => (
-            <Message key={info.id} info={info} />
-        ));
-
-        const chatting =(   
-                <div className={classes.scroll_div}>
-                    {chatList}
-                </div>
-        )
-
-        return(
-            <Paper className={classes.chat_list}>
-                <InfiniteScroll
-                throttle={100}
-                threshold={300}
-                next={this.state.fetchData}
-                hasMore={true}
-                endMessage={
-                    <p style={{ textAlign: 'center' }}>
-                      <b>Yay! You have seen it all</b>
-                    </p>
-                  }
-                initialScrollY={0}
-                refreshFunction={this.refresh}
-                >
-                    <div className={classes.scroll_div}>
-                        {chatList}
+const ChattingList = inject("chat")(observer((props) => {
+    const {classes} = props;
+    const fetchMoreData = () => {
+        console.log("more data");
+    };    
+    return(
+        <Paper className={classes.chat_list}>
+            <InfiniteScroll
+                //dataLength={this.state.items.length}
+                pageStart={0}
+                loadMore={fetchMoreData}
+                hasMore={true || false}
+                loader={<div className="loader" key={0}>Loading ...</div>}
+                useWindow={true}
+                style={{height:"500px", overflow:"scroll"}}
+            >
+                <div style={{}}>
+                {props.chat.data.map((info, index) => (
+                    <div key={index}>
+                        <Message info={info} />
                     </div>
-                </InfiniteScroll>
-            </Paper>
-            
-        );
-    }
-}
+                ))}
+                </div>
+            </InfiniteScroll>            
+        </Paper>        
+    );  
+}));
 
-export default withStyles(styles)(ChattingList);
+//export default withStyles(styles)(ChattingList);
+export default (withStyles(styles)(ChattingList));

@@ -1,9 +1,7 @@
 import ChatStore from './chat';
 
-class RootStore {
-    constructor() {
-        this.chat = new ChatStore(this);
-    }
-}
 
+const RootStore = {
+    chat : ChatStore,
+};
 export default RootStore;

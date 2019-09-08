@@ -21,6 +21,7 @@ public class Sender {
 
     public void send(String topic, ChattingMessage data) {
         log.info("sending data='{}' to topic='{}'", data, topic);
+        System.out.println("send message" + data);
         // send to Receiver
         kafkaTemplate.send(topic, data);
     }
