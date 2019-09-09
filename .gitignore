@@ -1,2 +1,2 @@
-/kafka_2.12-2.2.0/logs/*
+kafka_2.12-2.2.0/logs/
 dump.rdb
