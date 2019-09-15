@@ -40,7 +40,7 @@ public class ChattingController {
         message.setTimeStamp(System.currentTimeMillis());
         LocalDateTime currentDateTime = LocalDateTime.now();
         String current = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        message.setSend_date(current);
+        message.setSendDate(current);
 
         chattingMessageDAO.save(message);
         sender.send(BOOT_TOPIC, message);
@@ -57,7 +57,7 @@ public class ChattingController {
 
     @RequestMapping("/history")
     public List<ChattingMessage> getChattingHistory() throws Exception {
-        System.out.println("history!");
+        log.info("Call history");
         return chattingMessageDAO.get();
     }
 }

@@ -21,13 +21,8 @@ public class Sender {
 
     public void send(String topic, ChattingMessage data) {
         log.info("sending data='{}' to topic='{}'", data, topic);
-        kafkaTemplate.send(topic, data);// send to react clients via websocket(STOMP)
-//        ListenableFuture<SendResult<String, ChattingMessage>> result = kafkaTemplate.send(topic, data);
-//        try {
-//            log.info("SendResult: "+result.get().toString());
-//        }catch (Exception e){
-//            log.info("Kafka server 중지 됨");
-//            e.printStackTrace();
-//        }
+        System.out.println("send message" + data);
+        // send to Receiver
+        kafkaTemplate.send(topic, data);
     }
 }

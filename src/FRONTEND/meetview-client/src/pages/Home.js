@@ -1,14 +1,11 @@
 import React , { useState } from 'react';
-import ListItems from '../components/ListItems';
-import FileContainer from '../components/FileContainer';
-import ChattingTemplate from '../components/chatting/ChattingTemplate';
+import MainContainer from '../components/MainContainer';
 
 export default function Home() {
 
     return(
         <div>            
-            <ListItems/>
-            <FileContainer/>
+            <MainContainer/>            
         </div>
     );
 }

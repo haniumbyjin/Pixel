@@ -24,15 +24,14 @@ public class Receiver {
     public void receive(ChattingMessage message) throws Exception {
         log.info("message='{}'", message);
 
-        HashMap<String, String> msg = new HashMap<>();
-        msg.put("timestamp", Long.toString(message.getTimeStamp()));
-        msg.put("content", message.getContent());
-        msg.put("user_id", message.getUser_id());
-        msg.put("send_date",message.getSend_date());
-
         ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(msg);
 
+        // convert message to json
+        System.out.println(message);
+        String json = mapper.writeValueAsString(message);
+        System.out.println(json);
+
+        // send to react clients via websocket(STOMP)
         this.template.convertAndSend("/topic/public", json);
     }
 }

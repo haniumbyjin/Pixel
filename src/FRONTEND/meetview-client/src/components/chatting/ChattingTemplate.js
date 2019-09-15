@@ -1,67 +1,54 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import SockJsClient from "react-stomp";
 import Fetch from "json-fetch";
 import ChattingList from './ChattingList';
 import InputForm from './InputForm';
-import { inject, observer } from 'mobx-react';
+import { inject, observer, useLocalStore } from 'mobx-react';
 
-@inject(stores => ({
-    data: stores.chat.data,
-    clientConnected: stores.chat.clientConnected,
-}))
-
-@observer
-class ChattingTemplate extends Component {
-
-    onMessageReceive = (msg, topic) => {
-        console.log("Chatting Template - onMessageReceive");
-        //alert(JSON.stringify(msg) + " @ " + JSON.stringify(topic));
-        this.props.data.push(msg);
-        console.log(this.props.data);
+const ChattingTemplate = inject("chat")(props => {
+    const [clientRef, setClientRef] = useState(null);
+    const [clientConnected, setClientConnected] = useState(null);
+    const onMessageReceive = (msg, topic) => {
+        //console.log("Chatting Template - onMessageReceive");      
+        props.chat.data.push(msg);
+        console.log("send message : " + topic + JSON.stringify(msg));
     }
 
-    sendMessage = (newMsg) => {
+    const sendMessage = (newMessage) => {
         try {
-            var send_message = {
-                "user_uid": newMsg.user_uid,
-                "content": newMsg.content,
-                "send_date": newMsg.send_date
-            }
-            this.clientRef.sendMessage("/app/message", JSON.stringify(send_message));
+            clientRef.sendMessage("/app/message", JSON.stringify(newMessage));
             return true;
         } catch (e) {
             return false;
         }
     }
-
-    componentWillMount() {
+    useEffect(() => { GetHistory(); }, []);
+    function GetHistory() {
         console.log("call history");
         Fetch("/history", {
             method: "GET"
         }).then((response) => {
-            console.log(response.body);
-            response.body.map(chat => (
-                this.props.data.push(chat)
-            ));
+            //console.log("history message :" + JSON.stringify(response.body));
+            response.body.map((chat) => {
+                props.chat.data.push(chat);
+                return true;
+            });
         });
     }
-
-    render() {
-        const wsSourceUrl = "http://localhost:8080/chatting";
-        return (
-            <Fragment>
-                <div style={{backgroundColor: "#FCFCFC", padding: "10px"}}>
-                    <ChattingList />
-                    <InputForm sendMessage = {this.sendMessage} />
-                </div>
-                <SockJsClient url={wsSourceUrl} topics={["/topic/public"]}
-                    onMessage={this.onMessageReceive} ref={(client) => { this.clientRef = client }}
-                    onConnect={() => { this.clientConnected = true; }}
-                    onDisconnect={() => { this.clientConnected = false; }}
-                    debug={false} style={[{ width: '100%', height: '100%' }]} />
-            </Fragment>
-        );
-    }
-}
+    const wsSourceUrl = "http://localhost:8080/chatting";
+    return (
+        <Fragment>
+            <div style={{backgroundColor: "#FCFCFC", padding: "10px"}}>
+                <ChattingList />
+                <InputForm sendMessage = {sendMessage}/>
+            </div>
+            <SockJsClient url={wsSourceUrl} topics={["/topic/public"]}
+                onMessage={onMessageReceive} ref={(client) => { setClientRef(client) }}
+                onConnect={() => { setClientConnected(true);}}
+                onDisconnect={() => { setClientConnected(false); }}
+                debug={false} style={[{ width: '100%', height: '100%' }]} />
+        </Fragment>
+    );    
+});
 
 export default ChattingTemplate;
